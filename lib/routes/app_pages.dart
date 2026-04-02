@@ -1,17 +1,21 @@
 import 'package:get/get.dart';
-import '../presentation/screens/ auth/login/ login_binding.dart';
-import '../presentation/screens/ auth/login/login_screen.dart';
-import '../presentation/screens/ auth/register/register_binding.dart';
-import '../presentation/screens/ auth/register/register_screen.dart';
-import '../presentation/screens/ auth/verify/verify_binding.dart';
-import '../presentation/screens/ auth/verify/verify_screen.dart';
+import '../presentation/screens/auth/login/login_binding.dart';
+import '../presentation/screens/auth/login/login_screen.dart';
+import '../presentation/screens/auth/register/register_binding.dart';
+import '../presentation/screens/auth/register/register_screen.dart';
+import '../presentation/screens/auth/verify/verify_binding.dart';
+import '../presentation/screens/auth/verify/verify_screen.dart';
+import '../presentation/screens/main/main_binding.dart';
+import '../presentation/screens/main/main_screen.dart';
 import '../presentation/screens/closet_points/closet_points_binding.dart';
 import '../presentation/screens/closet_points/closet_points_screen.dart';
 import '../presentation/screens/edit_profile/edit_profile_binding.dart';
 import '../presentation/screens/edit_profile/edit_profile_screen.dart';
 import '../presentation/screens/followers/followers_binding.dart';
 import '../presentation/screens/followers/followers_screen.dart';
-import '../presentation/screens/onboarding/ onboarding_binding.dart';
+import '../presentation/screens/notifications/notifications_binding.dart';
+import '../presentation/screens/notifications/notifications_screen.dart';
+import '../presentation/screens/onboarding/onboarding_binding.dart';
 import '../presentation/screens/profile/profile_binding.dart';
 import '../presentation/screens/profile/profile_screen.dart';
 import '../presentation/screens/settings/settings_binding.dart';
@@ -77,6 +81,11 @@ class AppPages {
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 500),
     ),
+    GetPage(name: AppRoutes.main,
+        page: () => const MainScreen(),
+        binding: MainBinding(),
+        transition: Transition.fade
+    ),
     GetPage(
       name: AppRoutes.scanner,
       page: () => const ScannerScreen(),
@@ -125,6 +134,11 @@ class AppPages {
     GetPage(name: AppRoutes.settings,
         page: () => const SettingsScreen(),
         binding: SettingsBinding(),
+        transition: Transition.rightToLeft
+    ),
+    GetPage(name: AppRoutes.notifications,
+        page: () => const NotificationsScreen(),
+        binding: NotificationsBinding(),
         transition: Transition.rightToLeft
     ),
   ];

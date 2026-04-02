@@ -5,6 +5,7 @@ abstract class AppRoutes {
   static const String register = '/register';
   static const String verify = '/verify';
   static const String onboarding = '/onboarding';
+  static const String main         = '/main';
   static const String scanner = '/scanner';
   static const String wardrobe = '/wardrobe';
   static const String welcome = '/welcome';
@@ -15,4 +16,5 @@ abstract class AppRoutes {
   static const String closetPoints = '/closet-points';
   static const String followers = '/followers';
   static const String settings = '/settings';
+  static const String notifications  = '/notifications';
 }

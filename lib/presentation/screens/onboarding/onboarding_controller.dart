@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../domain/entities/ user_entity.dart';
+import '../../../domain/entities/user_entity.dart';
 import '../../../routes/app_routes.dart';
 
 enum OnboardingStep {

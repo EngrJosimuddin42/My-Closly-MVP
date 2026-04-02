@@ -8,6 +8,6 @@ class WelcomeController extends GetxController {
 
   void onStartExploring() {
     _storage.write(AppConstants.keyOnboarded, true);
-    Get.offAllNamed(AppRoutes.home);
+    Get.offAllNamed(AppRoutes.main);
   }
 }

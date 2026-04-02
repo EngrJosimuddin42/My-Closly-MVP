@@ -22,7 +22,7 @@ class SplashController extends GetxController {
     debugPrint('Token: $token | isOnboarded: $isOnboarded');
 
     if (token != null && isOnboarded) {
-      Get.offAllNamed(AppRoutes.home);
+      Get.offAllNamed(AppRoutes.main);
     } else {
       Get.offAllNamed(AppRoutes.start);
     }
