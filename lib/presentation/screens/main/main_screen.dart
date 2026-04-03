@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_text_styles.dart';
+import '../closet/closet_screen.dart';
 import '../home/home_screen.dart';
 import '../message/message_screen.dart';
 import '../profile/profile_screen.dart';
@@ -18,7 +19,7 @@ class MainScreen extends GetView<MainController> {
         children: const [
           HomeBody(),       // 0 - Home
           MessageScreen(),  // 1 - Message
-          _Placeholder(),   // 2 - Closet (alag page)
+          ClosetScreen(),   //2- Closet
           ProfileScreen(),  // 3 - Profile
         ],
       )),

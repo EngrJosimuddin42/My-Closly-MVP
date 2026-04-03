@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import '../closet/closet_controller.dart';
 import '../profile/profile_controller.dart';
 import 'main_controller.dart';
 import '../home/home_controller.dart';
@@ -11,5 +12,6 @@ class MainBinding extends Bindings {
     Get.lazyPut<HomeController>(() => HomeController());
     Get.lazyPut<ProfileController>(() => ProfileController());
     Get.lazyPut<MessageController>(() => MessageController());
+    Get.lazyPut<ClosetController>(() => ClosetController());
   }
 }

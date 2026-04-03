@@ -5,34 +5,42 @@ import '../presentation/screens/auth/register/register_binding.dart';
 import '../presentation/screens/auth/register/register_screen.dart';
 import '../presentation/screens/auth/verify/verify_binding.dart';
 import '../presentation/screens/auth/verify/verify_screen.dart';
+import '../presentation/screens/closet/ closet_binding.dart';
+import '../presentation/screens/closet/ today_wear/today_wear_screen.dart';
+import '../presentation/screens/closet/all_pieces/all_pieces_screen.dart';
+import '../presentation/screens/closet/audit/ audit_detail_screen.dart';
+import '../presentation/screens/closet/audit/audit_screen.dart';
+import '../presentation/screens/closet/closet_screen.dart';
+import '../presentation/screens/closet/ghost_pieces/ghost_pieces_screen.dart';
+import '../presentation/screens/closet/item_detail/item_detail_screen.dart';
 import '../presentation/screens/main/main_binding.dart';
 import '../presentation/screens/main/main_screen.dart';
-import '../presentation/screens/closet_points/closet_points_binding.dart';
-import '../presentation/screens/closet_points/closet_points_screen.dart';
-import '../presentation/screens/edit_profile/edit_profile_binding.dart';
-import '../presentation/screens/edit_profile/edit_profile_screen.dart';
-import '../presentation/screens/followers/followers_binding.dart';
-import '../presentation/screens/followers/followers_screen.dart';
 import '../presentation/screens/notifications/notifications_binding.dart';
 import '../presentation/screens/notifications/notifications_screen.dart';
 import '../presentation/screens/onboarding/onboarding_binding.dart';
+import '../presentation/screens/onboarding/wardrobe/wardrobe_binding.dart';
+import '../presentation/screens/onboarding/wardrobe/wardrobe_screen.dart';
+import '../presentation/screens/onboarding/welcome/welcome_binding.dart';
+import '../presentation/screens/onboarding/welcome/welcome_screen.dart';
+import '../presentation/screens/profile/closet_points/closet_points_binding.dart';
+import '../presentation/screens/profile/closet_points/closet_points_screen.dart';
+import '../presentation/screens/profile/edit_profile/edit_profile_binding.dart';
+import '../presentation/screens/profile/edit_profile/edit_profile_screen.dart';
+import '../presentation/screens/profile/followers/followers_binding.dart';
+import '../presentation/screens/profile/followers/followers_screen.dart';
 import '../presentation/screens/profile/profile_binding.dart';
 import '../presentation/screens/profile/profile_screen.dart';
-import '../presentation/screens/settings/settings_binding.dart';
-import '../presentation/screens/settings/settings_screen.dart';
-import '../presentation/screens/splash/splash_screen.dart';
-import '../presentation/screens/splash/splash_binding.dart';
+import '../presentation/screens/profile/settings/settings_binding.dart';
+import '../presentation/screens/profile/settings/settings_screen.dart';
 import '../presentation/screens/onboarding/onboarding_screen.dart';
 import '../presentation/screens/scanner/scanner_screen.dart';
 import '../presentation/screens/scanner/scanner_binding.dart';
-import '../presentation/screens/wardrobe/wardrobe_screen.dart';
-import '../presentation/screens/wardrobe/wardrobe_binding.dart';
-import '../presentation/screens/welcome/welcome_screen.dart';
-import '../presentation/screens/welcome/welcome_binding.dart';
+import '../presentation/screens/splash/splash_binding.dart';
+import '../presentation/screens/splash/splash_screen.dart';
+import '../presentation/screens/splash/start/start_binding.dart';
+import '../presentation/screens/splash/start/start_screen.dart';
 import '../presentation/screens/home/home_screen.dart';
 import '../presentation/screens/home/home_binding.dart';
-import '../presentation/screens/start/start_screen.dart';
-import '../presentation/screens/start/start_binding.dart';
 import 'app_routes.dart';
 
 class AppPages {
@@ -141,5 +149,41 @@ class AppPages {
         binding: NotificationsBinding(),
         transition: Transition.rightToLeft
     ),
+    GetPage(name: AppRoutes.closetHome,
+        page: () => const ClosetScreen(),
+        binding: ClosetBinding(),
+        transition: Transition.rightToLeft
+    ),
+    GetPage(name: AppRoutes.closetAllPieces,
+        page: () => const AllPiecesScreen(),
+        binding: ClosetBinding(),
+        transition: Transition.rightToLeft
+    ),
+    GetPage(name: AppRoutes.closetItemDetail,
+        page: () => const ItemDetailScreen(),
+        binding: ClosetBinding(),
+        transition: Transition.rightToLeft
+    ),
+    GetPage(name: AppRoutes.closetGhostPieces,
+        page: () => const GhostPiecesScreen(),
+        binding: ClosetBinding(),
+        transition: Transition.rightToLeft
+    ),
+    GetPage(name: AppRoutes.closetAudit,
+        page: () => const AuditScreen(),
+        binding: ClosetBinding(),
+        transition: Transition.rightToLeft
+    ),
+    GetPage(name: AppRoutes.closetAuditDetail,
+        page: () => const AuditDetailScreen(),
+        binding: ClosetBinding(),
+        transition: Transition.rightToLeft
+    ),
+    GetPage(name: AppRoutes.closetTodayWear,
+        page: () => const TodayWearScreen(),
+        binding: ClosetBinding(),
+        transition: Transition.rightToLeft
+    ),
+
   ];
 }

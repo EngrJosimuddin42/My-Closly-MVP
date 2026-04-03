@@ -17,4 +17,11 @@ abstract class AppRoutes {
   static const String followers = '/followers';
   static const String settings = '/settings';
   static const String notifications  = '/notifications';
+  static const String closetHome        = '/closet';
+  static const String closetAllPieces   = '/closet/all-pieces';
+  static const String closetItemDetail  = '/closet/item-detail';
+  static const String closetGhostPieces = '/closet/ghost-pieces';
+  static const String closetAudit       = '/closet/audit';
+  static const String closetAuditDetail = '/closet/audit-detail';
+  static const String closetTodayWear   = '/closet/today-wear';
 }

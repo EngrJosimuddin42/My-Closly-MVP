@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import '../../../domain/entities/product_entity.dart';
-import '../../../routes/app_routes.dart';
 
+import '../../../../domain/entities/product_entity.dart';
+import '../../../../routes/app_routes.dart';
 class WardrobeController extends GetxController {
   final recentlyAdded = <ClothingItemEntity>[].obs;
 
