@@ -51,18 +51,6 @@ class RegisterScreen extends GetView<RegisterController> {
               ],
             ),
           ),
-
-          // ── Back button ─────────────────────────────────────────
-          Positioned(
-            top: topPadding + 8,
-            left: 24,
-            child: GestureDetector(
-              onTap: Get.back,
-              child: const Icon(Icons.arrow_back_ios_new,
-                  color: Colors.white, size: 20),
-            ),
-          ),
-
           // ── Bottom sheet pinned to bottom ───────────────────────
           Positioned(
             left: 0,
@@ -142,15 +130,39 @@ class _RegisterSheet extends GetView<RegisterController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
-                    child: AppTextField(
-                      label: 'Date of Birth',
-                      hint: AppStrings.dobHint,
-                      controller: controller.dobController,
-                      validator: controller.validateDob,
-                      prefixIcon: const Icon(
-                          Icons.calendar_today_outlined,
-                          color: AppColors.textTertiary,
-                          size: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Date of Birth', style: AppTextStyles.labelMedium),
+                        const SizedBox(height: 8),
+                        GestureDetector(
+                          onTap: () => controller.pickDate(context),
+                          child: Obx(() => Container(
+                            height: 52,
+                            padding: const EdgeInsets.symmetric(horizontal: 14),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(16),
+                              border: Border.all(color: AppColors.inputBorder),
+                            ),
+                            child: Row(children: [
+                              const Icon(Icons.calendar_today_outlined,
+                                  color: AppColors.textTertiary, size: 16),
+                              const SizedBox(width: 8),
+                              Text(
+                                controller.selectedDate.value == null
+                                    ? 'MM/DD/YY'
+                                    : controller.dobController.text,
+                                style: AppTextStyles.bodyMedium.copyWith(
+                                  color: controller.selectedDate.value == null
+                                      ? AppColors.textTertiary
+                                      : AppColors.textPrimary,
+                                ),
+                              ),
+                            ]),
+                          )),
+                        ),
+                      ],
                     ),
                   ),
                   const SizedBox(width: 10),

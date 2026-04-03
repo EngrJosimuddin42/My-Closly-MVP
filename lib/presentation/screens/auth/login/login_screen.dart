@@ -53,18 +53,6 @@ class LoginScreen extends GetView<LoginController> {
               ],
             ),
           ),
-
-          // ── Back button
-          Positioned(
-            top: topPadding + 8,
-            left: 24,
-            child: GestureDetector(
-              onTap: Get.back,
-              child: const Icon(Icons.arrow_back_ios_new,
-                  color: Colors.white, size: 20),
-            ),
-          ),
-
           // ── Login sheet pinned to bottom
           Positioned(
             left: 0,

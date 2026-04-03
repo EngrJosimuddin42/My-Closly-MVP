@@ -5,6 +5,7 @@ import '../../../../routes/app_routes.dart';
 class RegisterController extends GetxController {
   final emailController = TextEditingController();
   final dobController = TextEditingController();
+  final selectedDate = Rxn<DateTime>();
   final passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
@@ -59,6 +60,33 @@ class RegisterController extends GetxController {
     if (v == null || v.isEmpty) return 'Password is required';
     if (v.length < 6) return 'Minimum 6 characters';
     return null;
+  }
+
+  Future<void> pickDate(BuildContext context) async {
+    final picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate.value ?? DateTime(2000),
+      firstDate: DateTime(1950),
+      lastDate: DateTime.now().subtract(const Duration(days: 365 * 13)),
+      builder: (ctx, child) => Theme(
+        data: Theme.of(ctx).copyWith(
+          colorScheme: const ColorScheme.light(
+            primary: Color(0xFF2C1810),
+            onPrimary: Colors.white,
+            surface: Colors.white,
+            onSurface: Color(0xFF1C1C1C),
+          ),
+        ),
+        child: child!,
+      ),
+    );
+    if (picked != null) {
+      selectedDate.value = picked;
+      final d = picked.day.toString().padLeft(2, '0');
+      final m = picked.month.toString().padLeft(2, '0');
+      final y = picked.year.toString();
+      dobController.text = '$m/$d/$y';
+    }
   }
 
   String? validateDob(String? v) {
