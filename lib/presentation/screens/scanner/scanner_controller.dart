@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../domain/entities/product_entity.dart';
+import '../onboarding/wardrobe/wardrobe_controller.dart';
 
 enum ScannerState { scanning, analyzing, result, manual }
 
 class ScannerController extends GetxController {
   final scannerState = ScannerState.scanning.obs;
 
-  // Detected item
   final detectedItem = Rxn<ClothingItemEntity>();
 
   // Manual entry
@@ -18,6 +18,16 @@ class ScannerController extends GetxController {
   final manualBrand = 'Gap Kids'.obs;
 
   @override
+  void onInit() {
+    super.onInit();
+    // Add Manually থেকে আসলে সরাসরি manual state-এ যাবে
+    final args = Get.arguments;
+    if (args != null && args is Map && args['openManual'] == true) {
+      scannerState.value = ScannerState.manual;
+    }
+  }
+
+  @override
   void onClose() {
     itemNameController.dispose();
     super.onClose();
@@ -25,7 +35,6 @@ class ScannerController extends GetxController {
 
   void onScan() {
     scannerState.value = ScannerState.analyzing;
-    // Simulate AI analysis
     Future.delayed(const Duration(seconds: 2), () {
       detectedItem.value = ClothingItemEntity(
         id: 'item_001',
@@ -48,16 +57,17 @@ class ScannerController extends GetxController {
   }
 
   void onSaveItem() {
-    // Save to closet
-    Get.back(result: detectedItem.value);
-    Get.snackbar(
-      'Saved!',
-      '${detectedItem.value?.name} added to your closet.',
-      snackPosition: SnackPosition.TOP,
-      backgroundColor: const Color(0xFF2C1810),
-      colorText: Colors.white,
-      duration: const Duration(seconds: 2),
-    );
+    if (detectedItem.value != null) {
+      Get.find<WardrobeController>().addItem(detectedItem.value!);
+      Get.back();
+      Get.snackbar(
+        'Saved!',
+        '${detectedItem.value?.name} added to your closet.',
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: const Color(0xFF2C1810),
+        colorText: Colors.white,
+      );
+    }
   }
 
   void onScanAnother() {
@@ -65,12 +75,11 @@ class ScannerController extends GetxController {
     scannerState.value = ScannerState.scanning;
   }
 
-  void onManual() {
-    scannerState.value = ScannerState.manual;
-  }
+  // Manual mode-এ যাওয়া
+  void onManual() => scannerState.value = ScannerState.manual;
 
   void onGallery() {
-    // TODO: image_picker gallery
+    // TODO: image_picker
   }
 
   void incrementQuantity() => manualQuantity.value++;
@@ -86,6 +95,16 @@ class ScannerController extends GetxController {
           colorText: Colors.white);
       return;
     }
+    final manualItem = ClothingItemEntity(
+      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      name: itemNameController.text,
+      brand: manualBrand.value,
+      size: manualSize.value,
+      color: '#${manualColor.value.value.toRadixString(16).substring(2)}',
+      category: 'Manual',
+      addedAt: DateTime.now(),
+    );
+    Get.find<WardrobeController>().addItem(manualItem);
     Get.back();
     Get.snackbar(
       'Saved!',

@@ -28,6 +28,7 @@ class HomeController extends GetxController {
 
   void onScannerTap() => Get.toNamed(AppRoutes.scanner);
   void onClosetTap()  => Get.toNamed(AppRoutes.wardrobe);
+  void onSeeAllExpandStyle() {Get.toNamed(AppRoutes.exploreStyle);}
 
   final sizes = ['XS', 'S', 'M', 'L', 'XL'];
   final weatherTemp = 14.obs;

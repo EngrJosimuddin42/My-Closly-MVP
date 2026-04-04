@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:myclosly/presentation/screens/home/explore_style_screen.dart';
 import '../presentation/screens/auth/login/login_binding.dart';
 import '../presentation/screens/auth/login/login_screen.dart';
 import '../presentation/screens/auth/register/register_binding.dart';
@@ -121,6 +122,13 @@ class AppPages {
       binding: HomeBinding(),
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 500),
+    ),
+    GetPage(
+      name: AppRoutes.exploreStyle,
+      page: () => const ExploreStyleScreen(),
+      binding: HomeBinding(),
+      transition: Transition.rightToLeft,
+      transitionDuration: const Duration(milliseconds: 350),
     ),
     GetPage(name: AppRoutes.profile,
         page: () => const ProfileScreen(),

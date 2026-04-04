@@ -12,6 +12,7 @@ class VerifyScreen extends GetView<VerifyController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       body: Stack(
         fit: StackFit.expand,
         children: [
@@ -19,17 +20,7 @@ class VerifyScreen extends GetView<VerifyController> {
           SafeArea(
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: GestureDetector(
-                      onTap: Get.back,
-                      child: const Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 20),
-                    ),
-                  ),
-                ),
-                const Spacer(),
+                const Expanded(child: SizedBox()),
                 _VerifySheet(),
               ],
             ),
@@ -85,7 +76,7 @@ class _VerifySheet extends GetView<VerifyController> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(24, 36, 24, 40),
+      padding: const EdgeInsets.fromLTRB(24, 24, 24, 24), // প্যাডিং কিছুটা কমানো হয়েছে
       decoration: const BoxDecoration(
         color: AppColors.background,
         borderRadius: BorderRadius.only(
@@ -93,90 +84,94 @@ class _VerifySheet extends GetView<VerifyController> {
           topRight: Radius.circular(28),
         ),
       ),
-      child: Column(
-        children: [
-          // Mail icon
-          Container(
-            width: 72,
-            height: 72,
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.white,
-              boxShadow: [BoxShadow(color: Color(0x12000000), blurRadius: 20, offset: Offset(0, 4))],
+      // এখানে মূল পরিবর্তন: Column-কে SingleChildScrollView দিয়ে র‍্যাপ করা হয়েছে
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min, // এটি কলামকে যতটুকু দরকার ততটুকু জায়গা নিতে বলবে
+          children: [
+            // Mail icon
+            Container(
+              width: 72,
+              height: 72,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white,
+                boxShadow: [BoxShadow(color: Color(0x12000000), blurRadius: 20, offset: Offset(0, 4))],
+              ),
+              child: const Icon(Icons.mail_outline, color: AppColors.primary, size: 32),
             ),
-            child: const Icon(Icons.mail_outline, color: AppColors.primary, size: 32),
-          ),
-          const SizedBox(height: 24),
+            const SizedBox(height: 24),
 
-          // Message
-          Text(
-            AppStrings.sentCode,
-            style: AppTextStyles.headlineMedium,
-            textAlign: TextAlign.center,
-          ),
-          RichText(
-            text: TextSpan(
+            // Message
+            Text(
+              AppStrings.sentCode,
               style: AppTextStyles.headlineMedium,
-              children: [
-                const TextSpan(text: 'to your '),
-                TextSpan(
-                  text: 'email.',
-                  style: AppTextStyles.displayItalicSmall.copyWith(
-                    fontSize: 20,
-                    color: AppColors.accent,
-                  ),
-                ),
-              ],
+              textAlign: TextAlign.center,
             ),
-          ),
-          const SizedBox(height: 12),
-          Text(
-            AppStrings.enterCode,
-            style: AppTextStyles.bodySmall.copyWith(color: const Color(0xFF6B9BC4)),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 32),
+            RichText(
+              text: TextSpan(
+                style: AppTextStyles.headlineMedium,
+                children: [
+                  const TextSpan(text: 'to your '),
+                  TextSpan(
+                    text: 'email.',
+                    style: AppTextStyles.displayItalicSmall.copyWith(
+                      fontSize: 20,
+                      color: AppColors.accent,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              AppStrings.enterCode,
+              style: AppTextStyles.bodySmall.copyWith(color: const Color(0xFF6B9BC4)),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 24), // গ্যাপ একটু কমানো হয়েছে
 
-          // OTP Fields
-          _OtpFields(),
-          const SizedBox(height: 28),
+            // OTP Fields
+            _OtpFields(),
+            const SizedBox(height: 28),
 
-          // Verify button
-          Obx(() => AppPrimaryButton(
-            label: AppStrings.verifyBtn,
-            onTap: controller.onVerify,
-            isLoading: controller.isLoading.value,
-          )),
-          const SizedBox(height: 20),
+            // Verify button
+            Obx(() => AppPrimaryButton(
+              label: AppStrings.verifyBtn,
+              onTap: controller.onVerify,
+              isLoading: controller.isLoading.value,
+            )),
+            const SizedBox(height: 20),
 
-          // Resend
-          Obx(() => Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(AppStrings.sendCodeAgain,
-                  style: AppTextStyles.bodySmall.copyWith(
-                    color: controller.canResend.value
-                        ? AppColors.primary
-                        : AppColors.textTertiary,
-                  )),
-              const SizedBox(width: 6),
-              if (!controller.canResend.value)
-                Text(
-                  controller.formattedCountdown,
-                  style: AppTextStyles.labelMedium.copyWith(color: AppColors.textPrimary),
-                )
-              else
-                GestureDetector(
-                  onTap: controller.onResend,
-                  child: Text('Resend',
-                      style: AppTextStyles.labelMedium.copyWith(
-                        color: AppColors.primary,
-                        decoration: TextDecoration.underline,
-                      )),
-                ),
-            ],
-          )),
-        ],
+            // Resend
+            Obx(() => Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(AppStrings.sendCodeAgain,
+                    style: AppTextStyles.bodySmall.copyWith(
+                      color: controller.canResend.value
+                          ? AppColors.primary
+                          : AppColors.textTertiary,
+                    )),
+                const SizedBox(width: 6),
+                if (!controller.canResend.value)
+                  Text(
+                    controller.formattedCountdown,
+                    style: AppTextStyles.labelMedium.copyWith(color: AppColors.textPrimary),
+                  )
+                else
+                  GestureDetector(
+                    onTap: controller.onResend,
+                    child: Text('Resend',
+                        style: AppTextStyles.labelMedium.copyWith(
+                          color: AppColors.primary,
+                          decoration: TextDecoration.underline,
+                        )),
+                  ),
+              ],
+            )),
+          ],
+        ),
       ),
     );
   }
@@ -185,33 +180,61 @@ class _VerifySheet extends GetView<VerifyController> {
 class _OtpFields extends GetView<VerifyController> {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(AppConstants.otpLength, (i) {
-        return Obx(() {
-          final otp = controller.enteredOtp.value;
-          final hasValue = i < otp.length;
-          return Container(
-            margin: const EdgeInsets.symmetric(horizontal: 8),
-            width: 62,
-            height: 68,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: hasValue ? AppColors.primary : AppColors.border,
-                width: hasValue ? 1.5 : 1,
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Positioned.fill(
+          child: Opacity(
+            opacity: 0,
+            child: TextField(
+              controller: controller.otpController,
+              focusNode: controller.focusNode,
+              onChanged: (value) => controller.onOtpChanged(value),
+              keyboardType: TextInputType.number,
+              maxLength: AppConstants.otpLength,
+              autofocus: true,
+              decoration: const InputDecoration(
+                counterText: "",
+                border: InputBorder.none,
               ),
             ),
-            child: Center(
-              child: Text(
-                hasValue ? otp[i] : '',
-                style: AppTextStyles.displaySmall.copyWith(fontSize: 24),
-              ),
-            ),
-          );
-        });
-      }),
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            controller.requestFocus();
+          },
+          behavior: HitTestBehavior.translucent,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: List.generate(AppConstants.otpLength, (i) {
+              return Obx(() {
+                final otp = controller.enteredOtp.value;
+                final hasValue = i < otp.length;
+                return Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 8),
+                  width: 62,
+                  height: 68,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: hasValue ? AppColors.primary : AppColors.border,
+                      width: hasValue ? 1.5 : 1,
+                    ),
+                  ),
+                  child: Center(
+                    child: Text(
+                      hasValue ? otp[i] : '',
+                      style: AppTextStyles.displaySmall.copyWith(fontSize: 24),
+                    ),
+                  ),
+                );
+              });
+            }),
+          ),
+        ),
+      ],
     );
   }
 }

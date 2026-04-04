@@ -10,6 +10,7 @@ abstract class AppRoutes {
   static const String wardrobe = '/wardrobe';
   static const String welcome = '/welcome';
   static const String home = '/home';
+  static const String exploreStyle = '/explore-style';
   static const String product = '/product';
   static const String profile = '/profile';
   static const String editProfile = '/edit-profile';

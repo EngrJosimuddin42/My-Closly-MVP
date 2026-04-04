@@ -7,6 +7,7 @@ import '../../../../routes/app_routes.dart';
 
 class VerifyController extends GetxController {
   final otpController = TextEditingController();
+  final focusNode = FocusNode();
   final enteredOtp = ''.obs;
   final isLoading = false.obs;
   final canResend = false.obs;
@@ -45,6 +46,13 @@ class VerifyController extends GetxController {
 
   void onOtpChanged(String value) {
     enteredOtp.value = value;
+  }
+
+  void requestFocus() {
+    focusNode.unfocus();
+    Future.delayed(Duration.zero, () {
+      focusNode.requestFocus();
+    });
   }
 
   Future<void> onVerify() async {

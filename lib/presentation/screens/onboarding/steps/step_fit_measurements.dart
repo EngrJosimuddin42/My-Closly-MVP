@@ -15,7 +15,7 @@ class StepFitMeasurements extends GetView<OnboardingController> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Fitness', style: AppTextStyles.overline),
+          Text(' Body FIt', style: AppTextStyles.overline),
           const SizedBox(height: 6),
           RichText(
             text: TextSpan(children: [

@@ -47,12 +47,12 @@ class OnboardingController extends GetxController {
   final selectedEyeColor = 'Brown'.obs;
   final selectedSkinTone = 2.obs;
 
-  final hairColors = ['Black', 'Brown', 'Blonde', 'Red', 'Grey'];
-  final eyeColors = ['Brown', 'Blue', 'Green', 'Grey'];
-  final skinTones = [
-    Color(0xFFF8D5B0), Color(0xFFF0C090), Color(0xFFD4956A),
-    Color(0xFFB07040), Color(0xFF8B5530), Color(0xFF5A3010),
-  ];
+  final RxList<String> hairColors = <String>['Black', 'Brown', 'Blonde', 'Red', 'Grey'].obs;
+  final RxList<String> eyeColors = <String>['Brown', 'Blue', 'Green', 'Grey'].obs;
+  final RxList<Color> skinTones = <Color>[
+    const Color(0xFFF8D5B0), const Color(0xFFF0C090), const Color(0xFFD4956A),
+    const Color(0xFFB07040), const Color(0xFF8B5530), const Color(0xFF5A3010),
+  ].obs;
 
   // ── Color Preferences ─────────────────────────────────────────
   final selectedColors = <String>[].obs;
@@ -76,24 +76,27 @@ class OnboardingController extends GetxController {
 
   // ── Style ─────────────────────────────────────────────────────
   final selectedStyles = <String>[].obs;
-  final styleOptions = [
+  final RxList<String> styleOptions = <String>[
     'Minimal', 'Streetwear', 'Elegant', 'Casual',
     'Sporty', 'Classic', 'Trendy', 'Vintage',
-  ];
+  ].obs;
+
 
   // ── Category ──────────────────────────────────────────────────
   final selectedCategories = <String>[].obs;
-  final categories = ['Tops', 'Dresses', 'Jeans', 'Pants', 'Shoes', 'Jackets', 'Bags', 'Accessories'];
+  final RxList<String> categories = <String>[
+    'Tops', 'Dresses', 'Jeans', 'Pants', 'Shoes', 'Jackets', 'Bags', 'Accessories'
+  ].obs;
 
   // ── Brands ────────────────────────────────────────────────────
   final selectedBrands = <String>[].obs;
   final brandSearchController = TextEditingController();
-  final brandOptions = [
+  final RxList<String> brandOptions = <String>[
     'Zara', 'Mango', 'H&M', 'COS', 'Nike', 'Adidas',
     'Arket', 'Uniqlo', 'Massimo Dutti', '& Other Stories',
     'Everlane', 'Reformation', "Levi's", 'Gap',
     'Banana Republic', 'J.Crew',
-  ];
+  ].obs;
 
   // ── Budget ────────────────────────────────────────────────────
   final tShirtBudget = 30.0.obs;
@@ -104,9 +107,9 @@ class OnboardingController extends GetxController {
 
   // ── Lifestyle ─────────────────────────────────────────────────
   final selectedLifestyle = ''.obs;
-  final lifestyles = ['Office / Work', 'University', 'Remote / Home', 'Creative Work', 'Outdoor / Active', 'Fitness / Sports'];
-
-  // ─────────────────────────────────────────────────────────────
+  final RxList<String> lifestyles = <String>[
+    'Office / Work', 'University', 'Remote / Home', 'Creative Work', 'Outdoor / Active', 'Fitness / Sports'
+  ].obs;
 
   @override
   void onClose() {

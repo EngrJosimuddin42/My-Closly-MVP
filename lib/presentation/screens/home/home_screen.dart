@@ -154,11 +154,14 @@ class _ForYouTab extends GetView<HomeController> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('Expand your style', style: AppTextStyles.headlineSmall),
-            Row(children: [
-              Text('See all', style: AppTextStyles.bodySmall.copyWith(color: AppColors.primary)),
-              const SizedBox(width: 4),
-              const Icon(Icons.arrow_forward_ios, size: 11, color: AppColors.primary),
-            ]),
+            GestureDetector(
+              onTap: controller.onSeeAllExpandStyle,
+              child: Row(children: [
+                Text('See all', style: AppTextStyles.bodySmall.copyWith(color: AppColors.primary)),
+                const SizedBox(width: 4),
+                const Icon(Icons.arrow_forward_ios, size: 11, color: AppColors.primary),
+              ]),
+            ),
           ],
         ),
         const SizedBox(height: 14),

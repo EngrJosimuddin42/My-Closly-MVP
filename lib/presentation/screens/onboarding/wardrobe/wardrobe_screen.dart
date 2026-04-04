@@ -108,24 +108,31 @@ class WardrobeScreen extends GetView<WardrobeController> {
               }),
 
               const Spacer(),
-
               // Continue to scan
-              AppPrimaryButton(
-                label: 'Continue to scan',
-                onTap: controller.onContinueToScan,
-              ),
-              const SizedBox(height: 12),
-              Center(
-                child: GestureDetector(
-                  onTap: controller.onSkip,
-                  child: Text(
-                    'Skip',
-                    style: AppTextStyles.bodyMedium.copyWith(
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
-                ),
-              ),
+              // Continue to scan
+              Obx(() {
+                return Column(
+                  children: [
+                    if (controller.hasItems)
+                      AppPrimaryButton(
+                        label: 'Finish',
+                        onTap: controller.onFinish,
+                      )
+                    else
+                      Center(
+                        child: GestureDetector(
+                          onTap: controller.onSkip,
+                          child: Text(
+                            'Skip',
+                            style: AppTextStyles.bodyMedium.copyWith(
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ),
+                      ),
+                  ],
+                );
+              }),
               const SizedBox(height: 28),
             ],
           ),

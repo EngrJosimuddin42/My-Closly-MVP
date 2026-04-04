@@ -109,13 +109,8 @@ class _ScanningView extends GetView<ScannerController> {
               child: Column(
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _ScanAction(
-                        icon: Icons.edit_outlined,
-                        label: 'MANUAL',
-                        onTap: controller.onManual,
-                      ),
                       // Shutter button
                       GestureDetector(
                         onTap: controller.onScan,
@@ -130,6 +125,7 @@ class _ScanningView extends GetView<ScannerController> {
                           child: const Icon(Icons.camera_alt, color: Colors.white, size: 32),
                         ),
                       ),
+                      const SizedBox(width: 40),
                       _ScanAction(
                         icon: Icons.photo_library_outlined,
                         label: 'GALLERY',
@@ -401,11 +397,6 @@ class _ResultView extends GetView<ScannerController> {
               ),
             ),
             const Spacer(),
-            Text(
-              'This item will be saved to your private inventory.',
-              style: AppTextStyles.caption,
-            ),
-            const SizedBox(height: 12),
             Row(
               children: [
                 Expanded(
@@ -422,6 +413,11 @@ class _ResultView extends GetView<ScannerController> {
                   ),
                 ),
               ],
+            ),
+            const SizedBox(height: 12),
+            Text(
+              'This item will be saved to your private inventory.',
+              style: AppTextStyles.caption,
             ),
             const SizedBox(height: 16),
           ],
@@ -497,7 +493,7 @@ class _ManualView extends GetView<ScannerController> {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new, size: 18),
-          onPressed: () => controller.scannerState.value = ScannerState.scanning,
+          onPressed: () => Get.back(),
         ),
         title: Text('Add New Item', style: AppTextStyles.headlineSmall),
         backgroundColor: Colors.white,
@@ -598,21 +594,9 @@ class _ManualView extends GetView<ScannerController> {
                 ],
               ),
             ),
-            const SizedBox(height: 32),
-            Text(
-              'This item will be saved to your private inventory.',
-              style: AppTextStyles.caption,
-            ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 250),
             Row(
               children: [
-                Expanded(
-                  child: AppOutlineButton(
-                    label: 'Scan another',
-                    onTap: controller.onScanAnother,
-                  ),
-                ),
-                const SizedBox(width: 12),
                 Expanded(
                   child: AppPrimaryButton(
                     label: 'Save',
@@ -620,6 +604,13 @@ class _ManualView extends GetView<ScannerController> {
                   ),
                 ),
               ],
+            ),
+            const SizedBox(height: 12),
+            Center(
+              child: Text(
+                'This item will be saved to your private inventory.',
+                style: AppTextStyles.caption,
+              ),
             ),
           ],
         ),
