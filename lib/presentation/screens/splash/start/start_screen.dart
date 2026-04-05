@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:video_player/video_player.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
@@ -14,8 +15,7 @@ class StartScreen extends GetView<StartController> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          // Background image placeholder (fashion photo)
-          _buildBackground(),
+          Obx(() => _buildVideoBackground()),
 
           // Gradient overlay
           Container(
@@ -41,28 +41,16 @@ class StartScreen extends GetView<StartController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Spacer(flex: 3),
-
-                  // Title
                   _buildTitle(),
-
                   const SizedBox(height: 12),
-
-                  // Subtitle
                   Text(
                     AppStrings.aiTagline,
                     style: AppTextStyles.bodyMediumWhite,
                   ),
-
                   const SizedBox(height: 48),
-
-                  // Create Account Button
                   _CreateAccountButton(onTap: controller.onCreateAccount),
-
                   const SizedBox(height: 20),
-
-                  // Already have account
                   _LoginLink(onTap: controller.onLogin),
-
                   const SizedBox(height: 32),
                 ],
               ),
@@ -73,18 +61,24 @@ class StartScreen extends GetView<StartController> {
     );
   }
 
-  Widget _buildBackground() {
-    return Container(
-      color: const Color(0xFF8A7B6F),
-      child: Center(
-        child: Icon(
-          Icons.person_outline,
-          size: 200,
-          color: Colors.white.withValues(alpha: 0.1),
+  Widget _buildVideoBackground() {
+    final vc = controller.videoController;
+
+    if (controller.isVideoReady.value &&
+        vc != null &&
+        vc.value.isInitialized) {
+      return SizedBox.expand(
+        child: FittedBox(
+          fit: BoxFit.cover,
+          child: SizedBox(
+            width: vc.value.size.width,
+            height: vc.value.size.height,
+            child: VideoPlayer(vc),
+          ),
         ),
-      ),
-    );
-    // In production: use CachedNetworkImage or AssetImage
+      );
+    }
+    return Container(color: AppColors.background);
   }
 
   Widget _buildTitle() {
@@ -94,11 +88,9 @@ class StartScreen extends GetView<StartController> {
         Text(AppStrings.landingTitle, style: AppTextStyles.displayLargeWhite),
         Text(
           AppStrings.landingTitleItalic,
-          style: AppTextStyles.displayItalicLarge.copyWith(
-            color: const Color(0xFFCFAB7A),
-          ),
-        ),
-        Text(AppStrings.landingTitleEnd, style: AppTextStyles.displayLargeWhite),
+          style: AppTextStyles.displayItalicLarge),
+        Text(AppStrings.landingTitleEnd,
+            style: AppTextStyles.displayLargeWhite),
       ],
     );
   }
@@ -117,14 +109,14 @@ class _CreateAccountButton extends StatelessWidget {
         height: 56,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(16),
         ),
         child: Center(
           child: Text(
             AppStrings.createAccount,
             style: AppTextStyles.button.copyWith(
-              color: AppColors.primary,
-              fontSize: 16,
+              color: AppColors.textOnDarkSecondary,
+              fontSize: 20,
             ),
           ),
         ),
@@ -148,21 +140,22 @@ class _LoginLink extends StatelessWidget {
             Text(
               AppStrings.alreadyHaveAccount,
               style: AppTextStyles.bodyMediumWhite.copyWith(
+                fontSize: 15,
                 color: Colors.white.withValues(alpha: 0.8),
               ),
             ),
             const SizedBox(width: 8),
             Container(
-              width: 32,
-              height: 32,
+              width: 30,
+              height: 30,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                border: Border.all(color: Colors.white.withValues(alpha: 0.4)),
+                color: AppColors.textOnDark,
               ),
               child: const Icon(
                 Icons.arrow_forward,
-                color: Colors.white,
-                size: 16,
+                color: AppColors.textOnDarkSecondary,
+                size: 20,
               ),
             ),
           ],

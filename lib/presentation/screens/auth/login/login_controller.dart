@@ -30,14 +30,12 @@ class LoginController extends GetxController {
 
     isLoading.value = true;
     try {
-      // Simulate API call
       await Future.delayed(const Duration(seconds: 1));
 
-      // Save token
       _storage.write(AppConstants.keyToken, 'mock_token_12345');
       _storage.write(AppConstants.keyOnboarded, true);
 
-      Get.offAllNamed(AppRoutes.home);
+      Get.offAllNamed(AppRoutes.main);
     } catch (e) {
       Get.snackbar(
         'Error',
@@ -51,12 +49,12 @@ class LoginController extends GetxController {
     }
   }
 
-  void onForgotPassword() {
-    // TODO: Navigate to forgot password
+  void onSignUp() {
+    Get.offNamed(AppRoutes.register);
   }
 
-  void onSignUp() {
-    Get.toNamed(AppRoutes.register);
+  void onForgotPassword() {
+    // TODO: Navigate to forgot password
   }
 
   String? validateEmail(String? value) {

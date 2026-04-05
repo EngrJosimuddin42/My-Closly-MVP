@@ -8,8 +8,8 @@ class AppTextStyles {
   // Display - Cormorant Garamond (serif, editorial)
   static TextStyle get displayLarge => GoogleFonts.cormorantGaramond(
     fontSize: 48,
-    fontWeight: FontWeight.w600,
-    color: AppColors.textPrimary,
+    fontWeight: FontWeight.w500,
+    color: AppColors.textOnDark,
     height: 1.1,
   );
 
@@ -38,14 +38,14 @@ class AppTextStyles {
 
   static TextStyle get displayItalicLarge => GoogleFonts.cormorantGaramond(
     fontSize: 48,
-    fontWeight: FontWeight.w400,
+    fontWeight: FontWeight.w500,
     fontStyle: FontStyle.italic,
     color: AppColors.accent,
     height: 1.1,
   );
 
   static TextStyle get displayItalicSmall => GoogleFonts.cormorantGaramond(
-    fontSize: 28,
+    fontSize: 30,
     fontWeight: FontWeight.w400,
     fontStyle: FontStyle.italic,
     color: AppColors.accent,
@@ -60,10 +60,10 @@ class AppTextStyles {
     height: 1.3,
   );
 
-  static TextStyle get headlineMedium => GoogleFonts.dmSans(
-    fontSize: 20,
-    fontWeight: FontWeight.w600,
-    color: AppColors.textPrimary,
+  static TextStyle get headlineMedium => GoogleFonts.cormorantGaramond(
+    fontSize: 30,
+    fontWeight: FontWeight.w500,
+    color: AppColors.textOnDarkSecondary,
     height: 1.3,
   );
 
@@ -75,24 +75,24 @@ class AppTextStyles {
   );
 
   // Body
-  static TextStyle get bodyLarge => GoogleFonts.dmSans(
-    fontSize: 16,
+  static TextStyle get bodyLarge => GoogleFonts.outfit(
+    fontSize: 12,
     fontWeight: FontWeight.w400,
     color: AppColors.textPrimary,
     height: 1.5,
   );
 
-  static TextStyle get bodyMedium => GoogleFonts.dmSans(
-    fontSize: 14,
+  static TextStyle get bodyMedium => GoogleFonts.outfit(
+    fontSize: 16,
     fontWeight: FontWeight.w400,
     color: AppColors.textSecondary,
     height: 1.5,
   );
 
-  static TextStyle get bodySmall => GoogleFonts.dmSans(
+  static TextStyle get bodySmall => GoogleFonts.outfit(
     fontSize: 12,
     fontWeight: FontWeight.w400,
-    color: AppColors.textTertiary,
+    color: AppColors.textOnDarkSecondary,
     height: 1.4,
   );
 
@@ -104,25 +104,25 @@ class AppTextStyles {
     letterSpacing: 0.1,
   );
 
-  static TextStyle get labelMedium => GoogleFonts.dmSans(
+  static TextStyle get labelMedium => GoogleFonts.outfit(
     fontSize: 12,
-    fontWeight: FontWeight.w500,
-    color: AppColors.textSecondary,
+    fontWeight: FontWeight.w400,
+    color: AppColors.textOnDark,
     letterSpacing: 0.5,
   );
 
   static TextStyle get labelSmall => GoogleFonts.dmSans(
-    fontSize: 10,
+    fontSize: 12,
     fontWeight: FontWeight.w500,
-    color: AppColors.textTertiary,
+    color: AppColors.textOnDarkSecondary,
     letterSpacing: 0.5,
     textBaseline: TextBaseline.alphabetic,
   );
 
   // Button
-  static TextStyle get button => GoogleFonts.dmSans(
+  static TextStyle get button => GoogleFonts.outfit(
     fontSize: 16,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w500,
     color: AppColors.textOnDark,
     letterSpacing: 0.2,
   );
@@ -158,15 +158,15 @@ class AppTextStyles {
   );
 
   static TextStyle get splashTagline => GoogleFonts.cormorantGaramond(
-    fontSize: 16,
-    fontWeight: FontWeight.w400,
+    fontSize: 24,
+    fontWeight: FontWeight.w500,
     fontStyle: FontStyle.italic,
     color: AppColors.accent,
   );
 
   // White variants for dark backgrounds
   static TextStyle get displayLargeWhite => displayLarge.copyWith(color: AppColors.textOnDark);
-  static TextStyle get displayMediumWhite => displayMedium.copyWith(color: AppColors.textOnDark);
+  static TextStyle get displayMediumWhite => displayMedium.copyWith(color: AppColors.textOnDark,fontWeight: FontWeight.w500);
   static TextStyle get displayItalicWhite => displayItalic.copyWith(color: Color(0xFFB8956A));
   static TextStyle get bodyMediumWhite => bodyMedium.copyWith(color: AppColors.textOnDarkSecondary);
   static TextStyle get bodyLargeWhite => bodyLarge.copyWith(color: AppColors.textOnDark);

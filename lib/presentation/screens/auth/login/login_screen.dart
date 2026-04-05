@@ -31,17 +31,15 @@ class LoginScreen extends GetView<LoginController> {
               children: [
                 Text('Welcome back',
                     style: AppTextStyles.labelMedium
-                        .copyWith(color: Colors.white70)),
+                        .copyWith(color:AppColors.textOnDark)),
                 const SizedBox(height: 6),
                 Text('Log in to',
                     style: AppTextStyles.displayMediumWhite),
                 Row(
                   children: [
                     Text(
-                      'your profile',
-                      style: AppTextStyles.displayItalicWhite
-                          .copyWith(color: const Color(0xFFCFAB7A)),
-                    ),
+                        'your profile',
+                        style: AppTextStyles.displayItalic),
                     const SizedBox(width: 8),
                     const Icon(Icons.arrow_forward,
                         color: Color(0xFFCFAB7A), size: 24),
@@ -49,7 +47,7 @@ class LoginScreen extends GetView<LoginController> {
                 ),
                 const SizedBox(height: 10),
                 Text(AppStrings.buildFeed,
-                    style: AppTextStyles.bodyMediumWhite),
+                    style: AppTextStyles.bodyMediumWhite.copyWith(color: AppColors.textOnDark)),
               ],
             ),
           ),
@@ -71,21 +69,17 @@ class LoginScreen extends GetView<LoginController> {
   }
 
   Widget _buildBackground() {
-    return Container(
-      color: const Color(0xFF5A4A42),
-      child: Opacity(
-        opacity: 0.5,
-        child: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: NetworkImage(
-                'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600',
-              ),
-            ),
-          ),
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        Image.asset(
+          'assets/images/background.png',
+          fit: BoxFit.cover,
         ),
-      ),
+        Container(
+          color: Colors.black.withValues(alpha: 0.1),
+        ),
+      ],
     );
   }
 }
@@ -95,11 +89,16 @@ class _LoginSheet extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        color: AppColors.background,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(28),
-          topRight: Radius.circular(28),
+      width: double.infinity,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          stops: const [0.0, 0.6],
+          colors: [
+            Colors.white.withValues(alpha: 0.0),
+            AppColors.background,
+          ],
         ),
       ),
       child: SingleChildScrollView(
@@ -122,7 +121,7 @@ class _LoginSheet extends GetView<LoginController> {
                 keyboardType: TextInputType.emailAddress,
                 validator: controller.validateEmail,
                 prefixIcon: const Icon(Icons.mail_outline,
-                    color: AppColors.textTertiary, size: 18),
+                    color: AppColors.accent, size: 20),
               ),
               const SizedBox(height: 14),
 
@@ -133,8 +132,13 @@ class _LoginSheet extends GetView<LoginController> {
                 controller: controller.passwordController,
                 obscureText: !controller.isPasswordVisible.value,
                 validator: controller.validatePassword,
-                prefixIcon: const Icon(Icons.lock_outline,
-                    color: AppColors.textTertiary, size: 18),
+                prefixIcon:
+                Image.asset(
+                  'assets/icons/lock.png',
+                  width: 18,
+                  height: 18,
+                  color: AppColors.accent,
+                ),
                 suffixIcon: IconButton(
                   icon: Icon(
                     controller.isPasswordVisible.value
@@ -171,12 +175,8 @@ class _LoginSheet extends GetView<LoginController> {
                   GestureDetector(
                     onTap: controller.onForgotPassword,
                     child: Text(
-                      AppStrings.forgotPassword,
-                      style: AppTextStyles.bodySmall.copyWith(
-                        color: AppColors.primary,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
+                        AppStrings.forgotPassword,
+                        style: AppTextStyles.bodySmall),
                   ),
                 ],
               ),
@@ -208,7 +208,6 @@ class _LoginSheet extends GetView<LoginController> {
                           style: AppTextStyles.bodySmall.copyWith(
                             color: AppColors.primary,
                             fontWeight: FontWeight.w600,
-                            decoration: TextDecoration.underline,
                           ),
                         ),
                       ],

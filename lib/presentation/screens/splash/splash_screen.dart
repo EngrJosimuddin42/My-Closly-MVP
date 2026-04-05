@@ -9,7 +9,6 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Controller directly get করি — lazyPut কাজ না করলেও এটা force করবে
     final controller = Get.find<SplashController>();
 
     return Scaffold(
@@ -20,13 +19,13 @@ class SplashScreen extends StatelessWidget {
           children: [
             const Spacer(flex: 2),
             _BrandLogo(),
-            const SizedBox(height: 32),
+            const SizedBox(height: 100),
             Container(
-              width: 60,
+              width: 120,
               height: 1.5,
-              color: AppColors.accent.withOpacity(0.6),
+              color: AppColors.accent.withValues(alpha: 0.6),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 40),
             Text(
               'The social circle',
               style: AppTextStyles.splashTagline,
@@ -84,18 +83,9 @@ class _BrandLogoState extends State<_BrandLogo>
       opacity: _fadeAnim,
       child: SlideTransition(
         position: _slideAnim,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'my',
-              style: AppTextStyles.splashBrand.copyWith(fontSize: 32),
-            ),
-            Text(
-              'Closly.',
-              style: AppTextStyles.splashBrand,
-            ),
-          ],
+        child: Image.asset(
+          'assets/images/logo.png',
+          width: 180,
         ),
       ),
     );

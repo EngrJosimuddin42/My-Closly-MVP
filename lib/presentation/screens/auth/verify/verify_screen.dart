@@ -17,37 +17,37 @@ class VerifyScreen extends GetView<VerifyController> {
         fit: StackFit.expand,
         children: [
           _buildBackground(),
-          SafeArea(
-            child: Column(
-              children: [
-                const Expanded(child: SizedBox()),
-                _VerifySheet(),
-              ],
-            ),
-          ),
           Positioned(
             left: 28,
             top: 100,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Last step', style: AppTextStyles.labelMedium.copyWith(color: Colors.white70)),
-                const SizedBox(height: 6),
-                Text('Verify your', style: AppTextStyles.displayMediumWhite),
+                Text('Last step', style: AppTextStyles.labelMedium.copyWith(fontSize: 16)),
+                const SizedBox(height: 16),
+                Text('Verify your',
+                    style: AppTextStyles.displayMedium.copyWith(
+                        fontWeight: FontWeight.w500, color: AppColors.textOnDark)),
                 Row(
                   children: [
-                    Text(
-                      'Account',
-                      style: AppTextStyles.displayItalicWhite.copyWith(color: const Color(0xFFCFAB7A)),
-                    ),
+                    Text('Account',
+                        style: AppTextStyles.displayItalic.copyWith(
+                            fontWeight: FontWeight.w500, color: Colors.white)),
                     const SizedBox(width: 8),
-                    const Icon(Icons.arrow_forward, color: Color(0xFFCFAB7A), size: 24),
+                    const Icon(Icons.arrow_forward, color: AppColors.accent, size: 24),
                   ],
                 ),
-                const SizedBox(height: 10),
-                Text(AppStrings.buildFeed, style: AppTextStyles.bodyMediumWhite),
+                const SizedBox(height: 12),
+                Text(AppStrings.buildFeed,
+                    style: AppTextStyles.bodyMedium.copyWith(color: AppColors.textOnDark)),
               ],
             ),
+          ),
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: _VerifySheet(),
           ),
         ],
       ),
@@ -55,19 +55,12 @@ class VerifyScreen extends GetView<VerifyController> {
   }
 
   Widget _buildBackground() {
-    return Container(
-      color: const Color(0xFF5A4A42),
-      child: Opacity(
-        opacity: 0.55,
-        child: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: NetworkImage('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600'),
-            ),
-          ),
-        ),
-      ),
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        Image.asset('assets/images/background.png', fit: BoxFit.cover),
+        Container(color: Colors.black.withValues(alpha: 0.2)),
+      ],
     );
   }
 }
@@ -76,104 +69,92 @@ class _VerifySheet extends GetView<VerifyController> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(24, 24, 24, 24), // প্যাডিং কিছুটা কমানো হয়েছে
-      decoration: const BoxDecoration(
-        color: AppColors.background,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(28),
-          topRight: Radius.circular(28),
-        ),
-      ),
-      // এখানে মূল পরিবর্তন: Column-কে SingleChildScrollView দিয়ে র‍্যাপ করা হয়েছে
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min, // এটি কলামকে যতটুকু দরকার ততটুকু জায়গা নিতে বলবে
-          children: [
-            // Mail icon
-            Container(
-              width: 72,
-              height: 72,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.white,
-                boxShadow: [BoxShadow(color: Color(0x12000000), blurRadius: 20, offset: Offset(0, 4))],
-              ),
-              child: const Icon(Icons.mail_outline, color: AppColors.primary, size: 32),
-            ),
-            const SizedBox(height: 24),
-
-            // Message
-            Text(
-              AppStrings.sentCode,
-              style: AppTextStyles.headlineMedium,
-              textAlign: TextAlign.center,
-            ),
-            RichText(
-              text: TextSpan(
-                style: AppTextStyles.headlineMedium,
-                children: [
-                  const TextSpan(text: 'to your '),
-                  TextSpan(
-                    text: 'email.',
-                    style: AppTextStyles.displayItalicSmall.copyWith(
-                      fontSize: 20,
-                      color: AppColors.accent,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 12),
-            Text(
-              AppStrings.enterCode,
-              style: AppTextStyles.bodySmall.copyWith(color: const Color(0xFF6B9BC4)),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 24), // গ্যাপ একটু কমানো হয়েছে
-
-            // OTP Fields
-            _OtpFields(),
-            const SizedBox(height: 28),
-
-            // Verify button
-            Obx(() => AppPrimaryButton(
-              label: AppStrings.verifyBtn,
-              onTap: controller.onVerify,
-              isLoading: controller.isLoading.value,
-            )),
-            const SizedBox(height: 20),
-
-            // Resend
-            Obx(() => Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(AppStrings.sendCodeAgain,
-                    style: AppTextStyles.bodySmall.copyWith(
-                      color: controller.canResend.value
-                          ? AppColors.primary
-                          : AppColors.textTertiary,
-                    )),
-                const SizedBox(width: 6),
-                if (!controller.canResend.value)
-                  Text(
-                    controller.formattedCountdown,
-                    style: AppTextStyles.labelMedium.copyWith(color: AppColors.textPrimary),
-                  )
-                else
-                  GestureDetector(
-                    onTap: controller.onResend,
-                    child: Text('Resend',
-                        style: AppTextStyles.labelMedium.copyWith(
-                          color: AppColors.primary,
-                          decoration: TextDecoration.underline,
-                        )),
-                  ),
-              ],
-            )),
+      width: double.infinity,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          stops: const [0.0, 0.6],
+          colors: [
+            Colors.white.withValues(alpha: 0.0),
+            AppColors.background,
           ],
         ),
       ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const SizedBox(height: 20),
+          Container(
+            width: 72,
+            height: 72,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.white,
+              boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 10, offset: Offset(0, 5))],
+            ),
+            child: const Icon(Icons.mail_outline, color: AppColors.textOnDarkSecondary, size: 32),
+          ),
+          const SizedBox(height: 24),
+
+          Text(AppStrings.sentCode, style: AppTextStyles.headlineMedium, textAlign: TextAlign.center),
+          RichText(
+            text: TextSpan(
+              style: AppTextStyles.headlineMedium.copyWith(fontWeight: FontWeight.w400),
+              children: [
+                const TextSpan(text: 'to your '),
+                TextSpan(text: 'email.', style: AppTextStyles.displayItalicSmall),
+              ],
+            ),
+          ),
+          const SizedBox(height: 12),
+          Text(AppStrings.enterCode,
+              style: AppTextStyles.bodySmall.copyWith(fontSize: 14, color: AppColors.textPrimary2)),
+          const SizedBox(height: 24),
+
+          _OtpFields(),
+          const SizedBox(height: 32),
+
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Column(
+              children: [
+                Obx(() => AppPrimaryButton(
+                  label: AppStrings.verifyBtn,
+                  onTap: controller.onVerify,
+                  isLoading: controller.isLoading.value,
+                )),
+                const SizedBox(height: 20),
+                _buildResendSection(),
+                SizedBox(height: MediaQuery.of(context).padding.bottom + 20),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
+  }
+
+  Widget _buildResendSection() {
+    return Obx(() => Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(AppStrings.sendCodeAgain,
+            style: AppTextStyles.bodySmall.copyWith(
+              color: controller.canResend.value ? AppColors.accent : AppColors.textTertiary,
+            )),
+        const SizedBox(width: 6),
+        if (!controller.canResend.value)
+          Text(controller.formattedCountdown,
+              style: AppTextStyles.labelMedium.copyWith(color: AppColors.textPrimary))
+        else
+          GestureDetector(
+            onTap: controller.onResend,
+            child: Text('Resend',
+                style: AppTextStyles.labelMedium.copyWith(color: AppColors.primary)),
+          ),
+      ],
+    ));
   }
 }
 

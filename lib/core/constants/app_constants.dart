@@ -38,7 +38,7 @@ class AppStrings {
   static const String aiTagline = 'AI finds the fashion you\'ll love.';
 
   // Splash / Landing
-  static const String landingTitle = 'Your style,';
+  static const String landingTitle = 'Your style.';
   static const String landingTitleItalic = 'Finally';
   static const String landingTitleEnd = 'understood';
   static const String createAccount = 'Create Account';

@@ -27,11 +27,11 @@ class AppPrimaryButton extends StatelessWidget {
       onTap: isLoading ? null : onTap,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 150),
-        width: double.infinity,
+        width: 310,
         height: height,
         decoration: BoxDecoration(
-          color: backgroundColor ?? AppColors.primary,
-          borderRadius: BorderRadius.circular(30),
+          color: backgroundColor ?? AppColors.textOnDarkSecondary,
+          borderRadius: BorderRadius.circular(14),
         ),
         child: Center(
           child: isLoading
@@ -46,7 +46,7 @@ class AppPrimaryButton extends StatelessWidget {
               : Text(
             label,
             style: AppTextStyles.button.copyWith(
-              color: textColor ?? Colors.white,
+              color: textColor ?? AppColors.textPrimary1,fontSize: 20
             ),
           ),
         ),
@@ -124,7 +124,7 @@ class AppTextField extends StatelessWidget {
           keyboardType: keyboardType,
           validator: validator,
           onChanged: onChanged,
-          style: AppTextStyles.bodyLarge,
+          style: AppTextStyles.bodyLarge.copyWith(color: AppColors.textSecondary),
           decoration: InputDecoration(
             hintText: hint,
             prefixIcon: prefixIcon != null
@@ -151,7 +151,7 @@ class SocialLoginRow extends StatelessWidget {
       children: [
         Row(
           children: [
-            const Expanded(child: Divider()),
+            const Expanded(child: Divider(color: AppColors.border,)),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text('OR', style: AppTextStyles.labelSmall),
@@ -164,7 +164,7 @@ class SocialLoginRow extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             _SocialButton(
-              icon: Icons.g_mobiledata,
+              assetPath: 'assets/icons/google.png',
               color: Colors.red,
             ),
             const SizedBox(width: 16),
@@ -185,10 +185,16 @@ class SocialLoginRow extends StatelessWidget {
 }
 
 class _SocialButton extends StatelessWidget {
-  final IconData icon;
+  final IconData? icon;
+  final String? assetPath;
   final Color color;
 
-  const _SocialButton({required this.icon, required this.color});
+  const _SocialButton({
+    super.key,
+    this.icon,
+    this.assetPath,
+    required this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -197,10 +203,20 @@ class _SocialButton extends StatelessWidget {
       height: 52,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        border: Border.all(color: AppColors.border),
-        color: Colors.white,
+        border: Border.all(color: AppColors.background1),
+        color: AppColors.background1,
       ),
-      child: Icon(icon, color: color, size: 26),
+      child: Center(
+        child: assetPath != null
+            ? Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Image.asset(
+            assetPath!,
+            fit: BoxFit.contain,
+          ),
+        )
+            : Icon(icon, color: color, size: 30),
+      ),
     );
   }
 }

@@ -30,24 +30,21 @@ class RegisterScreen extends GetView<RegisterController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('Now here..',
-                    style: AppTextStyles.labelMedium
-                        .copyWith(color: Colors.white70)),
-                const SizedBox(height: 6),
-                Text(AppStrings.createTitle,
-                    style: AppTextStyles.displayMediumWhite),
+                    style: AppTextStyles.labelMedium.copyWith(fontSize: 16)),
+                const SizedBox(height: 12),
+                Text(AppStrings.createTitle,style: AppTextStyles.displayMedium.copyWith(fontWeight: FontWeight.w400,color: AppColors.textOnDark)),
                 Row(
                   children: [
                     Text(AppStrings.createTitleItalic,
-                        style: AppTextStyles.displayItalicWhite
-                            .copyWith(color: const Color(0xFFCFAB7A))),
+                        style: AppTextStyles.displayItalic.copyWith(fontWeight: FontWeight.w500)),
                     const SizedBox(width: 8),
                     const Icon(Icons.arrow_forward,
-                        color: Color(0xFFCFAB7A), size: 24),
+                        color:AppColors.accent, size: 24),
                   ],
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 12),
                 Text(AppStrings.buildFeed,
-                    style: AppTextStyles.bodyMediumWhite),
+                    style: AppTextStyles.bodyMedium.copyWith(color: AppColors.textOnDark)),
               ],
             ),
           ),
@@ -70,21 +67,17 @@ class RegisterScreen extends GetView<RegisterController> {
   }
 
   Widget _buildBackground() {
-    return Container(
-      color: const Color(0xFF5A4A42),
-      child: Opacity(
-        opacity: 0.55,
-        child: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: NetworkImage(
-                'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600',
-              ),
-            ),
-          ),
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        Image.asset(
+          'assets/images/background.png',
+          fit: BoxFit.cover,
         ),
-      ),
+        Container(
+          color: Colors.black.withValues(alpha: 0.1),
+        ),
+      ],
     );
   }
 }
@@ -94,11 +87,16 @@ class _RegisterSheet extends GetView<RegisterController> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        color: AppColors.background,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(28),
-          topRight: Radius.circular(28),
+      width: double.infinity,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          stops: const [0.0, 0.6],
+          colors: [
+            Colors.white.withValues(alpha: 0.0),
+            AppColors.background,
+          ],
         ),
       ),
       child: SingleChildScrollView(
@@ -121,7 +119,7 @@ class _RegisterSheet extends GetView<RegisterController> {
                 keyboardType: TextInputType.emailAddress,
                 validator: controller.validateEmail,
                 prefixIcon: const Icon(Icons.mail_outline,
-                    color: AppColors.textTertiary, size: 18),
+                    color: AppColors.accent, size: 18),
               ),
               const SizedBox(height: 12),
 
@@ -146,8 +144,12 @@ class _RegisterSheet extends GetView<RegisterController> {
                               border: Border.all(color: AppColors.inputBorder),
                             ),
                             child: Row(children: [
-                              const Icon(Icons.calendar_today_outlined,
-                                  color: AppColors.textTertiary, size: 16),
+                              Image.asset('assets/icons/calendar.png',
+                                color: AppColors.accent,
+                                width: 16,
+                                height: 16,
+                                fit: BoxFit.contain,
+                              ),
                               const SizedBox(width: 8),
                               Text(
                                 controller.selectedDate.value == null
@@ -220,8 +222,13 @@ class _RegisterSheet extends GetView<RegisterController> {
                 controller: controller.passwordController,
                 obscureText: !controller.isPasswordVisible.value,
                 validator: controller.validatePassword,
-                prefixIcon: const Icon(Icons.lock_outline,
-                    color: AppColors.textTertiary, size: 18),
+                prefixIcon:
+                Image.asset(
+                  'assets/icons/lock.png',
+                  width: 18,
+                  height: 18,
+                  color: AppColors.accent,
+                ),
                 suffixIcon: IconButton(
                   icon: Icon(
                     controller.isPasswordVisible.value
@@ -246,33 +253,16 @@ class _RegisterSheet extends GetView<RegisterController> {
                       child: Checkbox(
                         value: controller.agreedToTerms.value,
                         onChanged: (_) => controller.toggleTerms(),
+                        side: const BorderSide(color:AppColors.accent),
+                        activeColor: AppColors.primary,
                       ),
                     ),
                     const SizedBox(width: 10),
-                    Expanded(
-                      child: RichText(
-                        text: TextSpan(
-                          style: AppTextStyles.bodySmall,
-                          children: const [
-                            TextSpan(text: 'I agree to the '),
-                            TextSpan(
-                              text: 'Terms & Service',
-                              style: TextStyle(
-                                  color: AppColors.primary,
-                                  fontWeight: FontWeight.w600,
-                                  decoration: TextDecoration.underline),
-                            ),
-                            TextSpan(text: ' and '),
-                            TextSpan(
-                              text: 'Privacy Policy',
-                              style: TextStyle(
-                                  color: AppColors.primary,
-                                  fontWeight: FontWeight.w600,
-                                  decoration: TextDecoration.underline),
-                            ),
-                            TextSpan(text: '.'),
-                          ],
-                        ),
+                     Expanded(
+                      child: Text(
+                        'I agree to the Terms & Service and Privacy Policy.',
+                        style: AppTextStyles.bodySmall.copyWith(
+                        color: AppColors.textOnDarkSecondary),
                       ),
                     ),
                   ],
